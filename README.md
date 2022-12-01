@@ -34,11 +34,11 @@ git clone https://github.com/runjia0124/CoCoNet.git
 cd CoCoNet
 ```
 
-The code is tested with Python == 3.7, PyTorch == 1.10.1 and CUDA == 11.3 on NVIDIA GeForce RTX 3090. We recommend you to use [anaconda](https://www.anaconda.com/) to manage dependencies. You may need to change the torch and cuda version in the `requirements.txt` according to your computer.
+The code is tested with Python == 3.7, PyTorch == 1.10.1 and CUDA == 11.3 on NVIDIA GeForce RTX 3090. 
 ```
-conda create -n rcmvsnet python=3.7
+conda create -n coconet python=3.7
 conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 cudatoolkit=11.3 -c pytorch -c conda-forge
-conda activate rcmvsnet
+conda activate coconet
 pip install -r requirements.txt
 ```
 
