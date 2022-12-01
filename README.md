@@ -42,118 +42,14 @@ conda activate rcmvsnet
 pip install -r requirements.txt
 ```
 
-## Datasets
-
-### DTU
-
-**Training**
-
-Download the [DTU dataset](https://drive.google.com/file/d/1eDjh-_bxKKnEuz5h-HXS7EDJn59clx6V/view) pre-processed by [MVSNet](https://github.com/YoYo000/MVSNet) and extract the archive. You could use [gdown](https://github.com/wkentaro/gdown) to download it form Google Drive. You could refer to [MVSNet](https://github.com/YoYo000/MVSNet) for the detailed documents of the file formats.
-
-Download the original resolution [depth maps](https://drive.google.com/open?id=1LVy8tsWajG3uPTCYPSxDvVXFCdIYXaS-) provided by [YaoYao](https://github.com/YoYo000/MVSNet/issues/106). Extract it and rename the folder to `Depths_raw`. 
-
-Merge the folders together and you should get a dataset folder like below:
-
-```
-dtu
-├── Cameras
-├── Depths
-├── Depths_raw
-└── Rectified
-```
-
-**Testing**
-
-Download the [DTU testing dataset](https://drive.google.com/file/d/135oKPefcPTsdtLRzoDAQtPpHuoIrpRI_/view) pre-processed by [MVSNet](https://github.com/YoYo000/MVSNet) and extract the archive. You could use [gdown](https://github.com/wkentaro/gdown) to download it form Google Drive. You could refer to [MVSNet](https://github.com/YoYo000/MVSNet) for the detailed documents of the file formats. 
-
-```
-dtu_test
-├── scan1
-├── scan4
-├── scan9
-...
-├── scan114
-└── scan118
-```
-
-
-
-### Tanksandtemples(Only for Testing)
-
-Download the [Tanks and Temples testing set](https://drive.google.com/open?id=1YArOJaX9WVLJh4757uE8AEREYkgszrCo) pre-processed by [MVSNet](https://github.com/YoYo000/MVSNet). For the `intermediate` subset, remember to replace the cameras by those in `short_range_caemeras_for_mvsnet.zip` in the `intermediate` folder, see [here](https://github.com/YoYo000/MVSNet/issues/14). You should get a dataset folder like below:
-
-```
-tankandtemples
-├── advanced
-│   ├── Auditorium
-│   ├── Ballroom
-│   ├── Courtroom
-│   ├── Museum
-│   ├── Palace
-│   └── Temple
-└── intermediate
-    ├── Family
-    ├── Francis
-    ├── Horse
-    ├── Lighthouse
-    ├── M60
-    ├── Panther
-    ├── Playground
-    └── Train
-```
-
-## Configure
-
-There are several options of flags at the beginning of each train/test file. Several key options are explained below. Other options are self-explanatory in the codes. Before running our codes, you may need to change the `true_gpu`, `trainpath/testpath` , `logdir`and `loadckpt` (only for testing).
-
-* `logdir` A relative or absolute folder path for writing logs.
-* `true_gpu` The true GPU IDs, used for setting CUDA_VISIBLE_DEVICES in the code. You may change it to your GPU IDs.
-* `gpu` The GPU ID used in your experiment. If true_gpu: "5, 6". Then you could use gpu: [0], gpu: [1], or gpu: [0, 1]
-* `loadckpt` The checkpoint file path used for testing.
-* `trainpath/testpath` A relative or absolute folder path for training or testing data. You may need to change it to your data folder.
-* `outdir` A relative or absolute folder path for generating depth maps and writing point clouds(DTU).
-* `plydir` A relative or absolute folder path for writing point clouds(Tanks).
-* `dataset` Dataset to be used. ["dtu_train","dtu_test","tanks"]
-* `resume` Resume training from the latest history.
-
-## Training
-
-Train the model on DTU dataset
-```
-python train_rcmvsnet.py --logdir ./rc-mvsnet --trainpath {your data dir} --dataset dtu_train --gpu [0,1,2,3] --true_gpu 0,1,2,3 
-```
+## Results
+![](demo/visual.png)
 
 ## Testing
+`python main.py --test --use_gpu`
 
-### **DTU**
-
-We have provided pre-trained model in the `pretrain` folder, which contains models for both backbone network and rendering consistency network, only the backbone network (ended with 'cas') is used for testing as mentioned in the paper. The rendering consistency network (ended with 'nerf') is used for resume training from the current epoch. 
-
-You could use `eval_rcmvsnet_dtu.py` to reconstruct depthmaps and point clouds with the checkpoint. To reproduce the DTU results in our paper, run commands below:
-
-```
-python eval_rcmvsnet_dtu.py
-```
-After you get the point clouds, you could follow the instructions in [DTU](http://roboimagedata.compute.dtu.dk/?page_id=36) website to quantitatively evaluate the point clouds.
-
-**DTU Point Cloud Evaluation**
-
-We provide evaluation code in the `matlab_eval` folder. The code relies on the official code of [DTU](http://roboimagedata.compute.dtu.dk/?page_id=36) Dataset. Please use  `BaseEvalMain_web_pt.m`, `ComputeStat_web_pt.m` and `compute_mean.m` for evaluation. 
-
-* `gt_datapath` The path to the ground truth point clouds.
-* `dataPaths` The path to the generated point clouds of RC-MVSNet.
-* `resultsPaths` The path to output metrics of the evaluation script.
-
-### Tanksandtemples
-
-To reproduce the Tanksandtemples results in our paper, run commands below:
-```
-python eval_rcmvsnet_tanks.py --split "intermediate" --loadckpt "./pretrain/model_000014_cas.ckpt"  --plydir "./tanks_submission" --outdir './tanks_exp' --testpath {your data dir}
-```
-```
-python eval_rcmvsnet_tanks.py --split "advanced"  --loadckpt "./pretrain/model_000014_cas.ckpt" --plydir "./tanks_submission" --outdir './tanks_exp' --testpath {your data dir}
-```
-After you get the point clouds, you could submit them to the [Tanksandtemples](https://www.tanksandtemples.org/) website for quantitative evaluatation.
+## Training
+Coming soon...
 
 
 ## Contact
