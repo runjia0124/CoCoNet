@@ -54,7 +54,7 @@ Coming soon...
 
 ## Contact
 
-If you have any questions, please raise an issue or email to Runjia Lin (`linrunja@gmail.com`) or Jinyuan Liu (` atlantis918@hotmail.com`).
+Runjia Lin (`linrunja@gmail.com`) or Jinyuan Liu (` atlantis918@hotmail.com`).
 
 ## Acknowledgments
 
