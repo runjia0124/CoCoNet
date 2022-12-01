@@ -15,7 +15,7 @@
       <sup>1</sup>Dalian University of Technology
       <sup>2</sup>Peng Cheng Laboratory
     <br />
-    <a href="https://arxiv.org/abs/2203.03949">Arxiv</a> 
+    <a href="https://arxiv.org/abs/2211.10960">Arxiv</a> 
 
   </p>
 </div>
