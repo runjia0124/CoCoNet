@@ -15,7 +15,7 @@
       <sup>1</sup>Dalian University of Technology
       <sup>2</sup>Peng Cheng Laboratory
     <br />
-    <a href="https://arxiv.org/abs/2203.03949">Arxiv</a> 
+    <a href="https://arxiv.org/abs/2211.10960">Arxiv</a> 
 
   </p>
 </div>
@@ -34,11 +34,11 @@ git clone https://github.com/runjia0124/CoCoNet.git
 cd CoCoNet
 ```
 
-The code is tested with Python == 3.7, PyTorch == 1.10.1 and CUDA == 11.3 on NVIDIA GeForce RTX 3090. We recommend you to use [anaconda](https://www.anaconda.com/) to manage dependencies. You may need to change the torch and cuda version in the `requirements.txt` according to your computer.
+The code is tested with Python == 3.7, PyTorch == 1.10.1 and CUDA == 11.3 on NVIDIA GeForce RTX 3090. 
 ```
-conda create -n rcmvsnet python=3.7
+conda create -n coconet python=3.7
 conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 cudatoolkit=11.3 -c pytorch -c conda-forge
-conda activate rcmvsnet
+conda activate coconet
 pip install -r requirements.txt
 ```
 
@@ -53,8 +53,9 @@ Coming soon...
 
 
 ## Contact
+Code is not sorted (will do), any issue about the code, please email us, 
 
-If you have any questions, please raise an issue or email to Runjia Lin (`linrunja@gmail.com`) or Jinyuan Liu (` atlantis918@hotmail.com`).
+Jinyuan Liu (`atlantis918@hotmail.com`) or Runjia Lin(`linrunja@gmail.com`).
 
 ## Acknowledgments
 
