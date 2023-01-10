@@ -1,95 +1,57 @@
-import time
-import os
 import torch
-import logging
 import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
-from tqdm import tqdm
-from torch import optim
-from options.train_options import TrainOptions
-from torch.utils.tensorboard import SummaryWriter
-from lib.nn import SynchronizedBatchNorm2d as SynBN2d
+from torchvision import models
+
 from utils import pad_tensor
 from utils import pad_tensor_back
-import torchfile
-from torchvision import models
-from resnet import resnet18
 from attention import CAM_Module
-from P_loss import Vgg19_Unet, Vgg19_train
 
-class Vgg(nn.Module):
-    def __init__(self):
-        super(Vgg, self).__init__()
+class Vgg19_Unet(torch.nn.Module):
 
-        self.conv1_1 = nn.Conv2d(1, 64, 3, padding=1)
-        self.ReLU1_1 = nn.ReLU()
-        self.bn1_1 = nn.BatchNorm2d(64)
-        self.max_pool_1_1 = nn.MaxPool2d(2, 2)
-        self.conv1_2 = nn.Conv2d(64, 64, 3, padding=1)
-        self.ReLU1_2 = nn.ReLU()
-        self.bn1_2 = nn.BatchNorm2d(64)
-        self.max_pool_1_2 = nn.MaxPool2d(2, 2)
+    def __init__(self, requires_grad: bool = False, vgg19_weights=None):
+        super(Vgg19_Unet, self).__init__()
+        if vgg19_weights is None:
+            vgg_pretrained_features = load_model('vgg19', './').features
+        else:
+            model = models.vgg19(pretrained=True)
+            pretrain_dict = model.state_dict()
+            layer1 = pretrain_dict['features.0.weight']
+            new = torch.zeros(64, 1, 3, 3)
+            for i, output_channel in enumerate(layer1):
+                # Grey = 0.299R + 0.587G + 0.114B, RGB2GREY
+                new[i] = 0.299 * output_channel[0] + 0.587 * output_channel[1] + 0.114 * output_channel[2]
+            pretrain_dict['features.0.weight'] = new
+            model.features[0] = nn.Conv2d(1, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            model.load_state_dict(pretrain_dict)
+            vgg_pretrained_features = model.features
 
-        self.conv2_1 = nn.Conv2d(64, 128, 3, padding=1)
-        self.ReLU2_1 = nn.ReLU()
-        self.bn2_1 = nn.BatchNorm2d(128)
-        self.conv2_2 = nn.Conv2d(128, 128, 3, padding=1)
-        self.ReLU2_2 = nn.ReLU()
-        self.bn2_2 = nn.BatchNorm2d(128)
-        # self.conv2_3 = nn.Conv2d(128, 128, 3, padding=1)
-        # self.ReLU2_3 = nn.ReLU()
-        self.max_pool_2 = nn.MaxPool2d(2, 2)
+        self.slice1 = torch.nn.Sequential()
+        self.slice2 = torch.nn.Sequential()
+        self.slice3 = torch.nn.Sequential()
 
-        self.conv3_1 = nn.Conv2d(128, 256, 3, padding=1)
-        self.ReLU3_1 = nn.ReLU()
-        self.bn3_1 = nn.BatchNorm2d(256)
-        self.conv3_2 = nn.Conv2d(256, 256, 3, padding=1)
-        self.ReLU3_2 = nn.ReLU()
-        self.bn3_2 = nn.BatchNorm2d(256)
-        self.conv3_3 = nn.Conv2d(256, 256, 3, padding=1)
-        self.ReLU3_3 = nn.ReLU()
-        self.bn3_3 = nn.BatchNorm2d(256)
-        self.conv3_4 = nn.Conv2d(256, 256, 3, padding=1)
-        self.ReLU3_4 = nn.ReLU()
-        self.bn3_4 = nn.BatchNorm2d(256)
-        # self.max_pool_3 = nn.MaxPool2d(2, 2)
-    def forward(self, input):
-        o_64 = self.bn1_1(self.ReLU1_1(self.conv1_1(input)))
-        o_64 = self.max_pool_1_1(o_64)
-        o_64 = self.bn1_2(self.ReLU1_2(self.conv1_2(o_64)))
-        x = self.max_pool_1_2(o_64)
+        for x in range(2):
+            self.slice1.add_module(str(x), vgg_pretrained_features[x])
+        self.slice1.add_module(str(2), nn.MaxPool2d(2, 2))
+        for x in range(2, 4):
+            self.slice1.add_module(str(x+1), vgg_pretrained_features[x])
+        for x in range(4, 9):
+            self.slice2.add_module(str(x+1), vgg_pretrained_features[x])
+        for x in range(9, 18):
+            self.slice3.add_module(str(x+1), vgg_pretrained_features[x])#
 
-        o_128 = self.bn2_1(self.ReLU2_1(self.conv2_1(x)))
-        o_128 = self.bn2_2(self.ReLU2_2(self.conv2_2(o_128)))
-        x = self.max_pool_2(o_128)
-
-        o_256 = self.bn3_1(self.ReLU3_1(self.conv3_1(x)))
-        o_256 = self.bn3_2(self.ReLU3_2(self.conv3_2(o_256)))
-        o_256 = self.bn3_3(self.ReLU3_3(self.conv3_3(o_256)))
-        o_256 = self.bn3_4(self.ReLU3_4(self.conv3_4(o_256)))
-        return o_64, o_128, o_256
-        
-
-class SELayer(nn.Module):
-    def __init__(self, channel, reduction=16):
-        super(SELayer, self).__init__()
-        self.avg_pool = nn.AdaptiveAvgPool2d(1)
-        self.fc = nn.Sequential(
-            nn.Linear(channel, channel // reduction, bias=False),
-            nn.ReLU(inplace=True),
-            nn.Linear(channel // reduction, channel, bias=False),
-            nn.Sigmoid()
-        )
+        if not requires_grad:
+            for param in self.parameters():
+                param.requires_grad = False
 
     def forward(self, x):
-        b, c, _, _ = x.size()
-        y = self.avg_pool(x).view(b, c)
-        y = self.fc(y).view(b, c, 1, 1)
-        # print(y.expand_as(x).shape)
-        # print(y.expand_as(x))
-        return x * y.expand_as(x), y.expand_as(x)
 
+        h_relu1 = self.slice1(x)
+        h_relu2 = self.slice2(h_relu1)
+        h_relu3 = self.slice3(h_relu2)
+
+        return h_relu1, h_relu2, h_relu3
 
 class Unet_resize_conv(nn.Module):
     def __init__(self):
@@ -104,10 +66,8 @@ class Unet_resize_conv(nn.Module):
 
         self.vgg19 = Vgg19_Unet(vgg19_weights='place_holder')
 
-
         self.skip = False
         p = 1
-        # self.conv1_1 = nn.Conv2d(4, 32, 3, padding=p)
 
         self.conv1_1 = nn.Conv2d(2, 32, 3, padding=p)
         self.LReLU1_1 = nn.LeakyReLU(0.2, inplace=True)
@@ -152,7 +112,6 @@ class Unet_resize_conv(nn.Module):
         self.LReLU7_2 = nn.LeakyReLU(0.2, inplace=True)
         self.bn7_2 = nn.BatchNorm2d(128)
 
-        # self.deconv7 = nn.ConvTranspose2d(128, 64, 2, stride=2)
         self.deconv7 = nn.Conv2d(128, 64, 3, padding=p)
         self.att_deconv8 = nn.Conv2d(64 * 3, 64, 3, padding=p)
         self.conv8_1 = nn.Conv2d(128, 64, 3, padding=p)
@@ -162,7 +121,6 @@ class Unet_resize_conv(nn.Module):
         self.LReLU8_2 = nn.LeakyReLU(0.2, inplace=True)
         self.bn8_2 = nn.BatchNorm2d(64)
 
-        # self.deconv8 = nn.ConvTranspose2d(64, 32, 2, stride=2)
         self.deconv8 = nn.Conv2d(64, 32, 3, padding=p)
         self.att_deconv9 = nn.Conv2d(32 * 3, 32, 3, padding=p)
         self.conv9_1 = nn.Conv2d(64, 32, 3, padding=p)
@@ -176,6 +134,7 @@ class Unet_resize_conv(nn.Module):
         self.tanh = nn.Tanh()
 
     def forward(self, ir, vis):
+
         maps = []
 
         input = torch.cat([ir, vis], 1)
@@ -226,8 +185,8 @@ class Unet_resize_conv(nn.Module):
         att_7 = self.att_deconv7(att_7) # 128*3 -> 128
         up7 = torch.cat([self.deconv6(conv6), att_7], 1) # deconv6, 256->128
         # up7 = self.deconv6(torch.cat([conv6, vis_c7, ir_c7], 1))  # 256 + 256 + 256 -> 256
-        x = self.bn7_1(self.LReLU7_1(self.conv7_1(up7)))  #
-        conv7 = self.bn7_2(self.LReLU7_2(self.conv7_2(x)))  # 128
+        x = self.bn7_1(self.LReLU7_1(self.conv7_1(up7)))  
+        conv7 = self.bn7_2(self.LReLU7_2(self.conv7_2(x)))  
 
         unet_out, unet_map = self.se_64(conv2)
         vgg_v_out, vgg_v_map = self.se_64(vis_2)
@@ -253,22 +212,18 @@ class Unet_resize_conv(nn.Module):
         latent = self.conv10(conv9)
 
         latent = self.tanh(latent)
-        # latent = (latent + 1) / 2
         output = latent
 
         output = pad_tensor_back(output, pad_left, pad_right, pad_top, pad_bottom)
         latent = pad_tensor_back(latent, pad_left, pad_right, pad_top, pad_bottom)
-        # gray = pad_tensor_back(gray, pad_left, pad_right, pad_top, pad_bottom)
+
         if flag == 1:
             output = F.upsample(output, scale_factor=2, mode='bilinear')
         if self.skip:
             return output, latent
         else:
             return output
-            
 
-if __name__ == '__main__':
-    model = Resnet_18()
 
 
 

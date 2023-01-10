@@ -1,45 +1,24 @@
-import os
-
-import imageio
-import torch
-from torch.utils.data import Dataset
-import numpy as np
-import random
 import h5py
-import cv2
+import torch
+import numpy as np
+from torch.utils.data import Dataset
 
 
-# v i
-# o u
-# 
 class TrainDataSet(Dataset):
     def __init__(self, dataset=None, arg=None):
         super(TrainDataSet, self).__init__()
         self.arg = arg
-        # self.transform = transform
 
         self.source_data = []
         self.grad, self.en = [], []
         self.batch_size = 1
-        # self.task_num = len(dataset)
+
         len_ = []
-        # for i in range(self.task_num):
+  
         data = h5py.File(dataset, 'r')
-        # grad = data['grad']
-        # en = data['mean']
 
         # dataset from guanyao
         keys = list(data.keys())
-        print('sample num: ', len(keys))
-        # print('keys: ', keys)
-        print('data: ', data['0'].shape)
-        # print('data type: ', type(data['0']))
-        # print('data: ', data['0'][...].shape)
-        # print('data min: ', data['2'][...].min())
-        # print('data max: ', data['2'][...].max())
-        # imageio.imsave('./c1.png', data['1130'][...][..., 0])
-        # imageio.imsave('./c2.png', data['1130'][...][..., 1])
-        # imageio.imsave('./c3.png', data['1130'][...][..., 2])
 
         # NEW: aggregate guanyao's data
         data_ = []
@@ -49,17 +28,7 @@ class TrainDataSet(Dataset):
         data_ = np.array(data_)
         print('all data shape: ', data_.shape)
 
-        # data = data['data'][:]
-        # print(data)
-
-        # print(data.shape)
-        # np.random.shuffle(data)
-        # data_ = []
-        # grad_ = []
-        # en_ = []
-
         np.random.shuffle(data_)
-        # print(data.shape)
         self.data = np.transpose(data_, (0, 3, 2, 1))
         # Normalize to [0, 1]
         self.data = self.data / 255.
@@ -70,23 +39,10 @@ class TrainDataSet(Dataset):
     def __getitem__(self, idx):
         traindata = []
         grad, en = [], []
-        # for i in range(self.arg.num_task):
-        # traindata.append(self.source_data[i][idx])
-        # grad.append(self.grad[i][idx])
-        # en.append(self.en[i][idx])
-        # traindata = np.array(traindata)
-        # grad = np.array(grad)
-        # en = np.array(en)
-        # print(traindata.shape)
-
-        # if self.transform:
 
         data = ((self.data[idx] - 0.5) / 0.5).astype(np.float32)
-        # traindata = (traindata-0.5)/0.5
-        # print(traindata)
+ 
         return data
-    # return (traindata, grad, en)
-
 
 from os.path import splitext
 from os import listdir
@@ -156,9 +112,7 @@ class BasicDataset(Dataset):
         mask = self.preprocess(mask, self.scale)
         img = (img - 0.5) / 0.5
         mask = (mask - 0.5) / 0.5
-        # print("---------------------------------")
-        # print("MAX", img.max())
-        # print("MIN", img.min())
+
         return {
             'image': torch.from_numpy(img).type(torch.FloatTensor),
             'mask': torch.from_numpy(mask).type(torch.FloatTensor),
@@ -231,9 +185,6 @@ class MaskDataset(Dataset):
         # mask = (mask - 0.5)/0.5
         img_ir = (img_ir - 0.5) / 0.5
 
-        # print("---------------------------------")
-        # print("MAX", img.max())
-        # print("MIN", img.min())
         return {
             'vis': torch.from_numpy(img_vis).type(torch.FloatTensor),
             'ir': torch.from_numpy(img_ir).type(torch.FloatTensor),

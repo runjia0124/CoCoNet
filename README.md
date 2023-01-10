@@ -34,10 +34,10 @@ git clone https://github.com/runjia0124/CoCoNet.git
 cd CoCoNet
 ```
 
-The code is tested with Python == 3.7, PyTorch == 1.10.1 and CUDA == 11.3 on NVIDIA GeForce RTX 3090. 
+The code is tested with Python == 3.7, PyTorch == 1.8.1 and CUDA == 11.1 on NVIDIA GeForce RTX 2080. 
 ```
 conda create -n coconet python=3.7
-conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 cudatoolkit=11.3 -c pytorch -c conda-forge
+conda install pytorch==1.8.1 torchvision==0.9.1 torchaudio==0.8.1 cudatoolkit=11.1 -c pytorch -c conda-forge
 conda activate coconet
 pip install -r requirements.txt
 ```
@@ -46,14 +46,19 @@ pip install -r requirements.txt
 ![](demo/visual.png)
 
 ## Testing
-`python main.py --test --use_gpu`
+```
+python main.py \
+--test --use_gpu \    
+--test_vis ./TNO/VIS \
+--test_ir ./TNO/IR 
+```
 
 ## Training
 Coming soon...
 
 
 ## Contact
-Code is not sorted (will do), any issue about the code, please email us, 
+Code is not yet well sorted (will do), any issue about the code, please email us, 
 
 Jinyuan Liu (`atlantis918@hotmail.com`) or Runjia Lin(`linrunja@gmail.com`).
 
