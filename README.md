@@ -58,7 +58,7 @@ Coming soon...
 
 
 ## Contact
-Code is not yet well sorted (will do), any issue about the code, please email us or open an issue, 
+Code is not yet well sorted (will do), any question about the code, please email us or open an issue, 
 
 Jinyuan Liu (`atlantis918@hotmail.com`) or Runjia Lin(`linrunja@gmail.com`).
 
