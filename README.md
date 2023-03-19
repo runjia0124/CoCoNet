@@ -16,9 +16,6 @@ conda activate coconet
 pip install -r requirements.txt
 ```
 
-## Results
-![](demo/visual.png)
-
 ## Testing
 ```
 python main.py \
