@@ -131,7 +131,6 @@ def test(model, vis_path, ir_path, f, save_path, pre, logs=None):
 				for j in range(b_w):
 					output[:,:,i*s:min((i+1)*s,h0-1),j*s:min((j+1)*s,w0-1)] = model(img1_data[:,:,i*s:min((i+1)*s,h0-1),j*s:min((j+1)*s,w0-1)], img1_data[:,:,i*s:min((i+1)*s,h0-1),j*s:min((j+1)*s,w0-1)])
 		else:
-			# Note that for CoCoNet, image intensity should range from 0 to 255 in the testing phase
 			# print('Image max: ', img1_data.max())
 			# print('Image min: ', img1_data.min())
 			# input images are fed to model
