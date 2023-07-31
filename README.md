@@ -1,10 +1,7 @@
 
 
-<div align="center">
   <h1 align="center">CoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion</h1>
 
-  
-</div>
 
 ## Introduction
 
