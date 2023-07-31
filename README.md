@@ -11,9 +11,9 @@
     Zhongxuan Luo<sup>1</sup> and 
     Xin Fan<sup>1</sup>
     </sup>
-      <br>
-      <sup>1</sup>Dalian University of Technology
-      <sup>2</sup>Peng Cheng Laboratory
+    <br>
+      <sup>1</sup><a>Dalian University of Technology</a> 
+      <sup>2</sup><a>Peng Cheng Laboratory</a> 
     <br />
     <a href="https://arxiv.org/abs/2211.10960">Arxiv</a> 
 
@@ -44,6 +44,7 @@ pip install -r requirements.txt
 
 ## Results
 ![](demo/visual.png)
+![](demo/visual_2.png)
 
 ## Testing
 ```
