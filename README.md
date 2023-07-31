@@ -43,7 +43,9 @@ pip install -r requirements.txt
 ```
 
 ## Results
+### Visual inspection
 ![](demo/visual.png)
+### Down-stream task
 ![](demo/visual_2.png)
 
 ## Testing
