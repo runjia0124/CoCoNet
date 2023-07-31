@@ -44,6 +44,7 @@ pip install -r requirements.txt
 
 ## Results
 ![](demo/visual.png)
+![](demo/visual_2.png)
 
 ## Testing
 ```
