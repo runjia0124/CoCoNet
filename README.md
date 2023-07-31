@@ -4,7 +4,12 @@
   <h1 align="center">CoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion</h1>
 
   <p align="center">
-    
+    <a href="https://github.com/JinyuanLiu-CV">Jinyuan Liu</a><sup>1</sup>,
+	<a href=https://github.com/runjia0124/ target=_blank rel=noopener>Runjia Lin</a><sup>1</sup>, 
+    Guanyao Wu<sup>1</sup>, 
+    <a href=https://rsliu.tech/ target=_blank rel=noopener>Risheng Liu</a><sup>1,2</sup>,
+    Zhongxuan Luo<sup>1</sup> and 
+    Xin Fan<sup>1</sup>
     </sup>
       <br>
       <sup>1</sup>Dalian University of Technology
