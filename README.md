@@ -44,7 +44,7 @@ Coming soon...
 
 
 ## Contact
-Training code is not yet well sorted (will do), any question about the code, please email us or open an issue, 
+Training code is not yet well sorted (will do upon accepted), any question about the code, please email us or open an issue, 
 
 Runjia Lin(`linrunja@gmail.com`) or Jinyuan Liu (`atlantis918@hotmail.com`).
 
