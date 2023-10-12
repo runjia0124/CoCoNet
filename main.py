@@ -13,7 +13,7 @@ from torchvision import transforms
 
 from model import Unet_resize_conv
 from utils import YCbCr2RGB,CbCrFusion
-os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0' # change the CUDA index in your need
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument('--epoch', type=int, help='epoch number', default=5)
