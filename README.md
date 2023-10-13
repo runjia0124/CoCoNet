@@ -1,7 +1,7 @@
 
 
   <h1 align="left">CoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion</h1>
-* [Arxiv](https://arxiv.org/pdf/2211.10960.pdf)
+[Arxiv](https://arxiv.org/pdf/2211.10960.pdf)
 
 ## Introduction
 
@@ -47,6 +47,12 @@ Coming soon...
 Training code is not yet well sorted (will do upon accepted), any question about the code, please email us or open an issue, 
 
 Runjia Lin(`linrunja@gmail.com`) or Jinyuan Liu (`atlantis918@hotmail.com`).
+
+## Relevant work
+CVPR22(Oral), Target-aware Dual Adversarial Learning and a Multi-scenario Multi-Modality
+Benchmark to Fuse Infrared and Visible for Object Detection
+ICCV23(Oral), Multi-interactive Feature Learning and a Full-time Multi-modality Benchmark
+for Image Fusion and Segmentation
 
 ## Acknowledgments
 
