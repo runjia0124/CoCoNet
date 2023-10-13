@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/pytorch-1.8.1-%237732a8)](https://pytorch.org/)
 
-[Arxiv](https://arxiv.org/pdf/2211.10960.pdf)
+[[Arxiv]](https://arxiv.org/pdf/2211.10960.pdf)
 
 ## Introduction
 
