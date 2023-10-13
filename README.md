@@ -1,7 +1,8 @@
 
 
-  <h1 align="left">CoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion</h1>
+  <h1 align="left">CoCoNet</h1>
 
+CoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion
 
 [![LICENSE](https://img.shields.io/badge/license-MIT-green)](https://github.com/wdhudiekou/IRFS/blob/main/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/)
