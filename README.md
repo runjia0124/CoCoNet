@@ -18,11 +18,11 @@ We propose a coupled contrastive learning network, dubbed CoCoNet, to realize in
 ![](demo/pipeline.png)
 
 
-- Related work
-  - 🆕**CVPR 2022 Oral:** Target-aware Dual Adversarial Learning and a Multi-scenario Multi-Modality
+- Related works
+  - 🆕 **CVPR 2022 Oral:** __Target-aware Dual Adversarial Learning and a Multi-scenario Multi-Modality
 Benchmark to Fuse Infrared and Visible for Object Detection [[paper]](https://openaccess.thecvf.com/content/CVPR2022/papers/Liu_Target-Aware_Dual_Adversarial_Learning_and_a_Multi-Scenario_Multi--Modality_Benchmark_To_CVPR_2022_paper.pdf) [[code]](https://github.com/JinyuanLiu-CV/TarDAL)
 
-  - 🆕**ICCV 2023 Oral:** Multi-interactive Feature Learning and a Full-time Multi-modality Benchmark for Image Fusion and Segmentation [[paper]](https://arxiv.org/pdf/2308.02097.pdf) [[code]](https://github.com/JinyuanLiu-CV/SegMiF)
+  - 🆕 **ICCV 2023 Oral:** __Multi-interactive Feature Learning and a Full-time Multi-modality Benchmark for Image Fusion and Segmentation [[paper]](https://arxiv.org/pdf/2308.02097.pdf) [[code]](https://github.com/JinyuanLiu-CV/SegMiF)
 
 
 ## Installation
