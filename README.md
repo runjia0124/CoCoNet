@@ -50,9 +50,9 @@ Runjia Lin(`linrunja@gmail.com`) or Jinyuan Liu (`atlantis918@hotmail.com`).
 
 ## Relevant work
 `CVPR22(Oral)`: Target-aware Dual Adversarial Learning and a Multi-scenario Multi-Modality
-Benchmark to Fuse Infrared and Visible for Object Detection
+Benchmark to Fuse Infrared and Visible for Object Detection [paper]([https://www.google.com/](https://openaccess.thecvf.com/content/CVPR2022/papers/Liu_Target-Aware_Dual_Adversarial_Learning_and_a_Multi-Scenario_Multi-Modality_Benchmark_To_CVPR_2022_paper.pdf)[github]([https://github.com/JinyuanLiu-CV/TarDAL)
 
-`ICCV23(Oral)`: Multi-interactive Feature Learning and a Full-time Multi-modality Benchmark
+`ICCV23(Oral)`: Multi-interactive Feature Learning and a Full-time Multi-modality Benchmark [paper]([[https://github.com/JinyuanLiu-CV/SegMiF)[github]([https://github.com/JinyuanLiu-CV/SegMiF](https://arxiv.org/pdf/2308.02097.pdf))
 for Image Fusion and Segmentation
 
 ## Acknowledgments
