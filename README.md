@@ -37,7 +37,7 @@ cd CoCoNet
 
 The code is tested with Python == 3.8, PyTorch == 1.8.1 and CUDA == 11.1 on NVIDIA GeForce RTX 2080, you may use a different version according to your GPU. 
 ```
-conda create -n coconet python=3.7
+conda create -n coconet python=3.8
 conda install pytorch==1.8.1 torchvision==0.9.1 torchaudio==0.8.1 cudatoolkit=11.1 -c pytorch -c conda-forge
 conda activate coconet
 pip install -r requirements.txt
