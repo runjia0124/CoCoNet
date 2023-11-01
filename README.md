@@ -10,11 +10,11 @@ Implementation of our paper:
 
 >  CoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion
 >
->  [Jinyuan Liu\*](https://scholar.google.com/citations?user=a1xipwYAAAAJ&hl=zh-CN&oi=ao), Runjia Lin\*, Guanyao Wu, [Risheng Liu](https://scholar.google.com/citations?user=DzuhImQAAAAJ&hl=zh-CN), Zhongxuan Luo, and [Xin Fan](https://scholar.google.com/citations?user=vLN1njoAAAAJ&hl=zh-CN&oi=ao)
+>  [Jinyuan Liu\*](https://scholar.google.com/citations?user=a1xipwYAAAAJ&hl=zh-CN&oi=ao), Runjia Lin\*, Guanyao Wu, [Risheng Liu](https://scholar.google.com/citations?user=DzuhImQAAAAJ&hl=zh-CN), Zhongxuan Luo, and [Xin Fan<sup>📭</sup>](https://scholar.google.com/citations?user=vLN1njoAAAAJ&hl=zh-CN&oi=ao)
 >
 >  International Journal of Computer Vision (IJCV), 2023
 
-### [Arxiv](https://arxiv.org/pdf/2211.10960.pdf)
+### [Paper](https://arxiv.org/pdf/2211.10960.pdf)
 
 
 ## Introduction
