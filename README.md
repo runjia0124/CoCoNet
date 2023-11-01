@@ -59,7 +59,7 @@ Coming soon...
 
 
 ## Contact
-Training code is not yet well sorted (will do upon accepted), any question about the code, please email us or open an issue, 
+The training code is being sorted, if you have any questions about the testing code, please email us or open an issue, 
 
 Runjia Lin(`linrunja@gmail.com`) or Jinyuan Liu (`atlantis918@hotmail.com`).
 
