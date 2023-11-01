@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/pytorch-1.9.0-%237732a8)](https://pytorch.org/)
 
-Code for [CoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion](https://arxiv.org/pdf/2211.10960.pdf) (accepted by International Journal of Computer Vision). 
+Code for [CoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion](https://arxiv.org/pdf/2211.10960.pdf), published at International Journal of Computer Vision. 
 
 
 ## Introduction
