@@ -48,12 +48,6 @@ conda activate coconet
 pip install -r requirements.txt
 ```
 
-## Results
-### Visual inspection
-![](demo/visual.png)
-### Down-stream task
-![](demo/visual_2.png)
-
 ## Testing
 ```
 python main.py \
@@ -64,6 +58,13 @@ python main.py \
 
 ## Training
 Coming soon...
+
+## Results
+### Visual inspection
+![](demo/visual.png)
+### Down-stream task
+![](demo/visual_2.png)
+
 
 
 ## Contact
