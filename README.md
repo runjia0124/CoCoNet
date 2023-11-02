@@ -19,7 +19,7 @@ Implementation of our work:
 
 ## Introduction
 
-We propose CoCoNet, the first attempt to introduce contrastive learning-based prior to multi-modality image fusion. 
+We propose CoCoNet, the first attempt to introduce contrastive learning-based prior for multi-modality image fusion. 
 
 ![](demo/pipeline.png)
 
