@@ -24,7 +24,7 @@ We propose CoCoNet, the first attempt to introduce contrastive learning-based pr
 ![](demo/pipeline.png)
 
 
-- Related works
+- Check out our recent related works🆕:
   - 🔥 **ICCV'23 Oral:** Multi-interactive Feature Learning and a Full-time Multi-modality Benchmark for Image Fusion and Segmentation [[paper]](https://arxiv.org/pdf/2308.02097.pdf) [[code]](https://github.com/JinyuanLiu-CV/SegMiF)
      
   - 🔥 **CVPR'22 Oral:** Target-aware Dual Adversarial Learning and a Multi-scenario Multi-Modality
