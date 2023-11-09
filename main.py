@@ -59,10 +59,11 @@ def test(model, vis_path, ir_path, f, save_path, pre, logs=None):
 	vis_list = [n for n in os.listdir(vis_path)]
 	ir_list = vis_list
 
-	logs = torch.load(checkpath) # use checkpoints when testing
 	device = torch.device('cpu')
 	if args.use_gpu:
 		device = torch.device('cuda')
+	logs = torch.load(checkpath, map_location=device) # use checkpoints when testing
+
 
 	model.load_state_dict(logs['state_dict'])
 	model.to(device)
@@ -141,7 +142,7 @@ def test(model, vis_path, ir_path, f, save_path, pre, logs=None):
 				img2_data = img2_data[:, 0, :, :]
 				img2_data = torch.unsqueeze(img2_data, 1)
 			output = model(img1_data, img2_data)
-		torch.cuda.synchronize()
+		# torch.cuda.synchronize()
 
 		output = np.transpose((torch.squeeze(output,0).cpu().detach().numpy()*127.5+127.5), (1,2,0)).astype(np.float32)
 		if f==1 or f==2:
