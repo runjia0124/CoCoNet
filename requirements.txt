@@ -1,3 +1,4 @@
+# tested on ubuntu
 absl-py==0.12.0
 addict==2.4.0
 adict==0.1.7
