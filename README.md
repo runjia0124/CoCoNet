@@ -16,7 +16,7 @@ Jinyuan Liu\*, Runjia Lin\*, Guanyao Wu, Risheng Liu, Zhongxuan Luo, and Xin Fan
 
 ## Introduction
 
-We present CoCoNet, the first to introduce contrastive learning-based prior for multi-modality image fusion. 
+We present CoCoNet, the first to explore contrastive learning-based prior for multi-modality image fusion. 
 
 ![](demo/pipeline.png)
 
