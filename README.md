@@ -52,7 +52,7 @@ python main.py \
 --test_vis ./TNO/VIS \
 --test_ir ./TNO/IR 
 ```
-To work with your own test set, make sure to use the same file names for each infrared-visible image pair if you prefer not to edit the code. 
+To work with your own test set, make sure to use the same file names for each infrared-visible image pair if you prefer not to edit the code.  
 
 ## Training
 Coming soon...
