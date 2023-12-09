@@ -11,7 +11,7 @@ Implementation of our work:
 Jinyuan Liu\*, Runjia Lin\*, Guanyao Wu, Risheng Liu, Zhongxuan Luo, and Xin Fan<sup>📭</sup>, "**CoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion**", International Journal of Computer Vision (**IJCV**), 2023.
 
 
-#### [[Paper]([https://arxiv.org/pdf/2211.10960.pdf](https://link.springer.com/article/10.1007/s11263-023-01952-1))]    [[Arxiv](https://arxiv.org/pdf/2211.10960.pdf)]
+#### [[Paper](https://link.springer.com/article/10.1007/s11263-023-01952-1)]    [[Arxiv](https://arxiv.org/pdf/2211.10960.pdf)]
 
 
 ## Introduction
