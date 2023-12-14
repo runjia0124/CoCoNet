@@ -70,9 +70,18 @@ The training code is being sorted, if you have any questions about the testing c
 
 Runjia Lin(`linrunja@gmail.com`) or Jinyuan Liu (`atlantis918@hotmail.com`).
 
-## Acknowledgments
+## Citation
 
-Template is adapted from this awesome repository. Appreciate!
+If you find this paper/code helpful, please consider citing us: 
 
-* [RC-MVSNet](https://github.com/Boese0601/RC-MVSNet)
+```
+@article{liu2023coconet,
+  title={Coconet: Coupled contrastive learning network with multi-level feature ensemble for multi-modality image fusion},
+  author={Liu, Jinyuan and Lin, Runjia and Wu, Guanyao and Liu, Risheng and Luo, Zhongxuan and Fan, Xin},
+  journal={International Journal of Computer Vision},
+  pages={1--28},
+  year={2023},
+  publisher={Springer}
+}
+```
 
