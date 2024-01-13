@@ -129,7 +129,6 @@ def main():
     if args.train:
         model.train()
         data_path = './training.h5'
-        data_path = '/data/lrj/Template/new_ir_vis_data.h5'
         train(model, data_path, optim, args)
 
     elif args.test:
@@ -142,7 +141,6 @@ def main():
     elif args.finetune:
         model.train()
         ft_data_path = './training_mask.h5'
-        ft_data_path = '/data/lrj/Template/data.h5'
         finetune_multiNegative(model, ft_data_path, optim, args)
 
 
