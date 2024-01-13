@@ -6,9 +6,9 @@ import numpy as np
 import imageio
 from torchvision import transforms
 
-from model import Unet_resize_conv
+from models.model import Unet_resize_conv
 from utils import fname_presuffix
-from train_tasks import train, finetune_multiNegative
+from models.train_tasks import train, finetune_multiNegative
 
 
 os.environ["CUDA_VISIBLE_DEVICES"] = '0'  # change the CUDA index in your need
@@ -63,7 +63,6 @@ def test(args, model, vis_path, ir_path, save_path, prefix='', suffix='', ext='.
     logs = torch.load(checkpath, map_location=device)  # use checkpoints when testing
     model.load_state_dict(logs['state_dict'])
     model.to(device)    
-    # model.eval()
 
     transform = transforms.Compose([
         transforms.ToTensor(),
@@ -129,7 +128,8 @@ def main():
 
     if args.train:
         model.train()
-        data_path = './dataset/training.h5'
+        data_path = './training.h5'
+        data_path = '/data/lrj/Template/new_ir_vis_data.h5'
         train(model, data_path, optim, args)
 
     elif args.test:
@@ -141,7 +141,8 @@ def main():
     
     elif args.finetune:
         model.train()
-        ft_data_path = './dataset/training_mask.h5'
+        ft_data_path = './training_mask.h5'
+        ft_data_path = '/data/lrj/Template/data.h5'
         finetune_multiNegative(model, ft_data_path, optim, args)
 
 

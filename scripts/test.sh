@@ -1,4 +1,4 @@
-python main.py \
+python ./main.py \
 --test  \
---test_vis ./TNO/VIS \
---test_ir ./TNO/IR
+--test_vis ./dataset/TNO/VIS \
+--test_ir ./dataset/TNO/IR 
