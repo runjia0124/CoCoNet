@@ -47,6 +47,10 @@ pip install -r requirements.txt
 
 ## Quick Test
 ```
+bash ./scripts/test.sh
+```
+or
+```
 python main.py \
 --test --use_gpu \    
 --test_vis ./TNO/VIS \
