@@ -1,6 +1,6 @@
 import torch
-from torch.nn import functional as F
 from torch import nn
+from torch.nn import functional as F
 
 
 def fname_presuffix(fname, prefix="", suffix="", newpath=None, use_ext=True):

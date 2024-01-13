@@ -1,5 +1,4 @@
 import torch
-import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import models
@@ -52,6 +51,7 @@ class Vgg19_Unet(torch.nn.Module):
         h_relu3 = self.slice3(h_relu2)
 
         return h_relu1, h_relu2, h_relu3
+
 
 class Unet_resize_conv(nn.Module):
     def __init__(self):
@@ -151,7 +151,6 @@ class Unet_resize_conv(nn.Module):
         vis_2, vis_3, vis_4 = self.vgg19(vis)
         ir_2, ir_3, ir_4 = self.vgg19(ir)
 
-
         flag = 0
 
         x = self.bn1_1(self.LReLU1_1(self.conv1_1(input)))
@@ -182,8 +181,8 @@ class Unet_resize_conv(nn.Module):
         vgg_i_out, vgg_i_map = self.se_128(ir_3)
 
         att_7 = torch.cat([unet_out, vgg_v_out, vgg_i_out], 1)
-        att_7 = self.att_deconv7(att_7) # 128*3 -> 128
-        up7 = torch.cat([self.deconv6(conv6), att_7], 1) # deconv6, 256->128
+        att_7 = self.att_deconv7(att_7)  # 128*3 -> 128
+        up7 = torch.cat([self.deconv6(conv6), att_7], 1)  # deconv6, 256->128
         # up7 = self.deconv6(torch.cat([conv6, vis_c7, ir_c7], 1))  # 256 + 256 + 256 -> 256
         x = self.bn7_1(self.LReLU7_1(self.conv7_1(up7)))  
         conv7 = self.bn7_2(self.LReLU7_2(self.conv7_2(x)))  
@@ -199,13 +198,13 @@ class Unet_resize_conv(nn.Module):
         att_8 = torch.cat([unet_out, vgg_v_out, vgg_i_out], 1)
         att_8 = self.att_deconv8(att_8) # 64*3 -> 64
 
-        up8 = torch.cat([self.deconv7(conv7), att_8], 1) # deconv7, 128->64
+        up8 = torch.cat([self.deconv7(conv7), att_8], 1)  # deconv7, 128->64
         x = self.bn8_1(self.LReLU8_1(self.conv8_1(up8)))
         conv8 = self.bn8_2(self.LReLU8_2(self.conv8_2(x)))  
 
         conv8 = F.upsample(conv8, scale_factor=2, mode='bilinear')
 
-        up9 = torch.cat([self.deconv8(conv8), conv1], 1) # deconv8, 64 -> 32
+        up9 = torch.cat([self.deconv8(conv8), conv1], 1)  # deconv8, 64 -> 32
         x = self.bn9_1(self.LReLU9_1(self.conv9_1(up9)))
         conv9 = self.LReLU9_2(self.conv9_2(x))
 

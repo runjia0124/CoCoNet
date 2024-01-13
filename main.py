@@ -3,16 +3,13 @@ import torch
 import cv2
 import argparse
 import numpy as np
-import matplotlib.pyplot as plt
 import imageio
-import scipy.misc
-from typing import List
-from torch.utils.data import DataLoader
 from torchvision import transforms
-# from train_tasks import train, finetune, train_noCrop, collab_multiNegative, finetune_multiNegative
 
 from model import Unet_resize_conv
-from utils import YCbCr2RGB, CbCrFusion, fname_presuffix
+from utils import fname_presuffix
+from train_tasks import train, finetune_multiNegative
+
 
 os.environ["CUDA_VISIBLE_DEVICES"] = '0'  # change the CUDA index in your need
 
@@ -21,26 +18,16 @@ argparser.add_argument('--epoch', type=int, help='epoch number', default=5)
 argparser.add_argument('--num_task', type=int, help='k shot for support set', default=3)
 argparser.add_argument('--lr', type=float, help='task-level inner update learning rate', default=1e-4)
 argparser.add_argument('--bs', type=int, help='batch size', default=10)
-argparser.add_argument('--logdir', type=str, default='logs/')
+argparser.add_argument('--logdir', type=str, default='./logs/')
 argparser.add_argument('--train', action='store_true')
-argparser.add_argument('--train_collab', action='store_true')
-argparser.add_argument('--train_2', action='store_true')
-argparser.add_argument('--train_UNet', action='store_true')
 argparser.add_argument('--test', action='store_true')
 argparser.add_argument('--test_vis', type=str, help='Directory of the test visible images')
 argparser.add_argument('--test_ir', type=str, help='Directory of the test infrared images')
-argparser.add_argument('--testVisual', action='store_true')
-argparser.add_argument('--test_attention', action='store_true')
-argparser.add_argument('--max_pool', action='store_true')
 argparser.add_argument('--resume', action='store_true')
+argparser.add_argument('--resume_ckpt', type=str, default='logs/')
+argparser.add_argument('--ckpt', type=str, default='./logs/latest.pth')
 argparser.add_argument('--finetune', action='store_true')
-argparser.add_argument('--finetune_train', action='store_true')
-argparser.add_argument('--finetune_multiNegative', action='store_true')
-argparser.add_argument('--pretrain', action='store_true')
 argparser.add_argument('--use_gpu', action='store_true')
-argparser.add_argument('--gn', action='store_true')
-argparser.add_argument('--dwa', action='store_true')
-argparser.add_argument('--pc', action='store_true')
 argparser.add_argument('--w', action='store_true')
 argparser.add_argument('--fs', type=int, help='fusion strategy,0~6', default=0)
 argparser.add_argument('--task', type=int, help='task 0,1,2(visir,me,mf)', default=0)
@@ -62,8 +49,9 @@ class GrayscaleTransform:
         return img
 
 
-def test(model, vis_path, ir_path, save_path, prefix='', suffix='', ext='.bmp'):
-    checkpath = './logs/latest.pth'
+def test(args, model, vis_path, ir_path, save_path, prefix='', suffix='', ext='.bmp'):
+
+    checkpath = args.ckpt
     print('Loading from {}...'.format(checkpath))
 
     vis_list = [n for n in os.listdir(vis_path)]
@@ -74,7 +62,8 @@ def test(model, vis_path, ir_path, save_path, prefix='', suffix='', ext='.bmp'):
         device = torch.device('cuda')
     logs = torch.load(checkpath, map_location=device)  # use checkpoints when testing
     model.load_state_dict(logs['state_dict'])
-    model.to(device)
+    model.to(device)    
+    # model.eval()
 
     transform = transforms.Compose([
         transforms.ToTensor(),
@@ -120,6 +109,7 @@ def test(model, vis_path, ir_path, save_path, prefix='', suffix='', ext='.bmp'):
 
 
 def main():
+
     print(
         '\nCoCoNet: Coupled Contrastive Learning Network with Multi-level Feature Ensemble for Multi-modality Image Fusion\n')
     print('Cuda ', torch.cuda.is_available())
@@ -139,21 +129,20 @@ def main():
 
     if args.train:
         model.train()
-        data_path = []
-        dir_vis = "../TNO_/vis/"
-        dir_ir = "../TNO_/ir/"
-        data_path.append(dir_vis)
-        data_path.append(dir_ir)
-
-        train(model, data1_path, optim, args.epoch, filepath, args)
-        save_path = 'results/' + args.logdir.split('/')[-1] + '/'
+        data_path = './training.h5'
+        train(model, data_path, optim, args)
 
     elif args.test:
         # TEST DIRECTORY
         dir_vis = args.test_vis
         dir_ir = args.test_ir
         save_path = args.save_dir
-        test(model, dir_vis, dir_ir, save_path, suffix='')
+        test(args, model, dir_vis, dir_ir, save_path, suffix='')
+    
+    elif args.finetune:
+        model.train()
+        ft_data_path = './training_mask.h5'
+        finetune_multiNegative(model, ft_data_path, optim, args)
 
 
 if __name__ == '__main__':

@@ -45,7 +45,7 @@ conda activate coconet
 pip install -r requirements.txt
 ```
 
-## Testing
+## Quick Test
 ```
 python main.py \
 --test --use_gpu \    
@@ -55,7 +55,20 @@ python main.py \
 To work with your own test set, make sure to use the same file names for each infrared-visible image pair if you prefer not to edit the code.  
 
 ## Training
-Coming soon...
+### Launch visdom
+```
+python -m visdom.server
+```
+### Main stage training
+```
+python main.py --train --c1 0.5 --c2 0.75 --epoch 30 --bs 30 \
+               --logdir <checkpoint_path> --use_gpu
+```
+### Finetuning with contrastive loss
+```
+python main.py --finetune --c1 0.5 --c2 0.75 --epoch 2 --bs 30 \
+               --logdir <checkpoint_path> --use_gpu
+```
 
 ## Results
 ### Visual inspection
@@ -66,7 +79,7 @@ Coming soon...
 
 
 ## Contact
-The training code is being sorted, if you have any questions about the testing code, please email us or open an issue, 
+If you have any questions about the code, please email us or open an issue, 
 
 Runjia Lin(`linrunja@gmail.com`) or Jinyuan Liu (`atlantis918@hotmail.com`).
 

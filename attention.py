@@ -4,13 +4,9 @@
 # Copyright (c) 2018
 ###########################################################################
 
-import numpy as np
 import torch
-import math
 from torch.nn import Module, Sequential, Conv2d, ReLU,AdaptiveMaxPool2d, AdaptiveAvgPool2d, \
     NLLLoss, BCELoss, CrossEntropyLoss, AvgPool2d, MaxPool2d, Parameter, Linear, Sigmoid, Softmax, Dropout, Embedding
-from torch.nn import functional as F
-from torch.autograd import Variable
 torch_ver = torch.__version__[:3]
 
 __all__ = ['PAM_Module', 'CAM_Module']
@@ -63,6 +59,7 @@ class CAM_Module(Module):
         self.conv_1 = Conv2d(self.chanel_in, self.chanel_in, 3, padding=1)
         self.conv_2 = Conv2d(self.chanel_in, self.chanel_in, 3, padding=1)
         self.conv_3 = Conv2d(self.chanel_in, self.chanel_in, 3, padding=1)
+
     def forward(self,x):
         """
             inputs :

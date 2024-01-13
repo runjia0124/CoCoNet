@@ -1,6 +1,4 @@
 import h5py
-import torch
-import numpy as np
 from torch.utils.data import Dataset
 
 
@@ -8,41 +6,20 @@ class TrainDataSet(Dataset):
     def __init__(self, dataset=None, arg=None):
         super(TrainDataSet, self).__init__()
         self.arg = arg
-
-        self.source_data = []
-        self.grad, self.en = [], []
-        self.batch_size = 1
-
-        len_ = []
-  
         data = h5py.File(dataset, 'r')
+        data = data['data'][:]
+        np.random.shuffle(data)
 
-        # dataset from guanyao
-        keys = list(data.keys())
-
-        # NEW: aggregate guanyao's data
-        data_ = []
-        for key in keys:
-            s_data = data[key][...]
-            data_.append(s_data)
-        data_ = np.array(data_)
-        print('all data shape: ', data_.shape)
-
-        np.random.shuffle(data_)
-        self.data = np.transpose(data_, (0, 3, 2, 1))
-        # Normalize to [0, 1]
-        self.data = self.data / 255.
+        self.data = data
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        traindata = []
-        grad, en = [], []
-
         data = ((self.data[idx] - 0.5) / 0.5).astype(np.float32)
- 
+
         return data
+
 
 from os.path import splitext
 from os import listdir
@@ -52,8 +29,6 @@ import torch
 from torch.utils.data import Dataset
 import logging
 from PIL import Image
-
-import torchvision.transforms as transforms
 
 
 class BasicDataset(Dataset):
@@ -88,8 +63,6 @@ class BasicDataset(Dataset):
 
         if img_trans.max() > 1:
             img_trans = img_trans / 255
-
-        # resize
 
         return img_trans
 

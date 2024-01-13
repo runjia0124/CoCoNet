@@ -3,6 +3,7 @@ from collections import OrderedDict
 import os
 import os.path as osp
 
+
 def load(filename,
          model,
          logger):
@@ -150,6 +151,34 @@ def save_latest(model,
             'meta': meta,
             'state_dict': weights_to_cpu(model.state_dict())}
     save_path = osp.join(out_dir, 'latest.pth')
+    torch.save(checkpoint, save_path)
+
+
+def save_latest_finetune(model,
+                optimizer,
+                out_dir,
+                epoch,
+                iters,
+                save_optimizer=True,
+                meta=None,
+                create_symlink=True):
+    if meta is None:
+        meta = dict(epoch=epoch + 1, iter=iters)
+    elif isinstance(meta, dict):
+        meta.update(epoch=epoch + 1, iter=iters)
+    else:
+        raise TypeError(
+            f'meta should be a dict or None, but got {type(meta)}')
+    if save_optimizer:
+        checkpoint = {
+            'meta': meta,
+            'state_dict': weights_to_cpu(model.state_dict()),
+            'optimizer': optimizer.state_dict()}
+    else:
+        checkpoint = {
+            'meta': meta,
+            'state_dict': weights_to_cpu(model.state_dict())}
+    save_path = osp.join(out_dir, 'ckpt_finetune_{}.pth'.format(epoch + 1))
     torch.save(checkpoint, save_path)
 
 
