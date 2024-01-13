@@ -55,16 +55,16 @@ python main.py \
 To work with your own test set, make sure to use the same file names for each infrared-visible image pair if you prefer not to edit the code.  
 
 ## Training
-### Launch visdom
+#### Launch visdom
 ```
 python -m visdom.server
 ```
-### Main stage training
+#### Main stage training
 ```
 python main.py --train --c1 0.5 --c2 0.75 --epoch 30 --bs 30 \
                --logdir <checkpoint_path> --use_gpu
 ```
-### Finetuning with contrastive loss
+#### Finetuning with contrastive loss
 ```
 python main.py --finetune --c1 0.5 --c2 0.75 --epoch 2 --bs 30 \
                --logdir <checkpoint_path> --use_gpu
