@@ -59,6 +59,9 @@ python main.py \
 To work with your own test set, make sure to use the same file names for each infrared-visible image pair if you prefer not to edit the code.  
 
 ## Training
+#### Data
+Get training data from [[Google Drive](https://drive.google.com/drive/folders/1eESG4qAkIbhBFXv0dPiQ94nvsFqpw5Fq?usp=sharing)]
+
 #### Launch visdom
 ```
 python -m visdom.server
