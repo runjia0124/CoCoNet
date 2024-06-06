@@ -16,7 +16,6 @@ Jinyuan Liu\*, Runjia Lin\*, Guanyao Wu, Risheng Liu, Zhongxuan Luo, and Xin Fan
 
 ## Introduction
 
-CoCoNet is the first work to explore contrastive prior for multi-modality image fusion. 
 
 ![](demo/pipeline.png)
 
